@@ -64,15 +64,17 @@ function check() {
 
     if (bool) {
         console.log(p)
-        if (p.length == 0) { alert("DRAW") }
+        if (p.length == 0) { alert("DRAW")
+         location.reload()}
         else {
             p.forEach(function (element) { document.getElementById(element).children[0].src = (m == 1) ? "redcross.png" : "redzero.png" })
             setTimeout(() => {
                 s = m == 1 ? 'P1 WIN' : 'P2 WIN';
                 alert(s)
+                location.reload()
             }, 100)
         }
-        location.reload()
+        
 
 
 
