@@ -197,7 +197,7 @@ function computermove() {
         }
     }
     console.log(l)
-    if (!mode)return
+    if (mode)
     document.getElementById(cell).appendChild(element);
 
 
@@ -224,8 +224,8 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-            setTimeout(computermove, 100)
-            setTimeout(check, 200)
+            setTimeout(computermove, 120)
+            setTimeout(check, 175)
         }
 
 
@@ -262,7 +262,7 @@ function computer() {
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 100);
+        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 120);
     });
 }
 function player2() {
