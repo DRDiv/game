@@ -224,8 +224,8 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-            setTimeout(computermove, 120)
-            setTimeout(check, 175)
+            setTimeout(computermove, 150)
+            setTimeout(check, 180)
         }
 
 
@@ -262,7 +262,7 @@ function computer() {
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 120);
+        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 150);
     });
 }
 function player2() {
