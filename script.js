@@ -4,7 +4,7 @@ var mode = false;
 function createNewElement(source) {
     var element = document.createElement('img');
     element.src = source;
-    element.style.height = '10vw';
+    element.style.height = '8rem';
     return element;
 }
 var list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -41,12 +41,13 @@ function check() {
     }
     if (l[0][1] == l[1][1] && l[1][1] == l[2][1] && l[1][1] != 0) {
         bool = true
-        m = l[0][1]
+        m = l[1][1]
         var p = ['r12', 'r22', 'r32']
     }
     if (l[0][2] == l[1][2] && l[1][2] == l[2][2] && l[0][2] != 0) {
         bool = true
-        m = l[0][0]
+        m = l[0][2]
+
         var p = ['r13', 'r23', 'r33']
     }
     if (l[0][0] == l[1][1] && l[1][1] == l[2][2] && l[0][0] != 0) {
@@ -63,9 +64,11 @@ function check() {
     }
 
     if (bool) {
-        console.log(p)
-        if (p.length == 0) { alert("DRAW")
-         location.reload()}
+        mode=!mode
+        if (p.length == 0) {
+            alert("DRAW")
+            location.reload()
+        }
         else {
             p.forEach(function (element) { document.getElementById(element).children[0].src = (m == 1) ? "redcross.png" : "redzero.png" })
             setTimeout(() => {
@@ -74,7 +77,7 @@ function check() {
                 location.reload()
             }, 100)
         }
-        
+
 
 
 
@@ -84,31 +87,124 @@ function getRandomInt(min, max) {
 
     return Math.floor(Math.random() * (max - min) + min);
 }
+function willwork(a) {
+    let cell = ""
+    if (l[0][0] == a && l[0][1] == a && l[0][2] == 0) {
+        cell = doeswork(0, 2)
+
+    }
+    else if (l[0][1] == a && l[0][2] == a && l[0][0] == 0) {
+        cell = doeswork(0, 0)
+
+    }
+    else if (l[0][0] == a && l[0][2] == a && l[0][1] == 0) {
+        cell = doeswork(0, 1)
+    }
+    else if (l[1][0] == a && l[1][1] == a && l[1][2] == 0) {
+        cell = doeswork(1, 2)
+    }
+    else if (l[1][1] == a && l[1][2] == a && l[1][0] == 0) {
+        cell = doeswork(1, 0)
+    }
+    else if (l[1][0] == a && l[1][2] == a && l[1][1] == 0) {
+        cell = doeswork(1, 1)
+    }
+    else if (l[2][0] == a && l[2][1] == a && l[2][2] == 0) {
+        cell = doeswork(2, 2)
+    }
+    else if (l[2][1] == a && l[2][2] == a && l[2][0] == 0) {
+        cell = doeswork(2, 0)
+    }
+    else if (l[2][0] == a && l[2][2] == a && l[2][1] == 0) {
+        cell = doeswork(2, 1)
+    }
+
+
+
+    else if (l[0][0] == a && l[1][0] == a && l[2][0] == 0) {
+        cell = doeswork(2, 0)
+    }
+    else if (l[1][0] == a && l[2][0] == a && l[0][0] == 0) {
+        cell = doeswork(0, 0)
+    }
+    else if (l[0][0] == a && l[2][0] == a && l[1][0] == 0) {
+        cell = doeswork(1, 0)
+    }
+    else if (l[0][1] == a && l[1][1] == a && l[2][1] == 0) {
+        cell = doeswork(2, 1)
+    }
+    else if (l[1][1] == a && l[2][1] == a && l[0][1] == 0) {
+        cell = doeswork(0, 1)
+    }
+    else if (l[0][1] == a && l[2][1] == a && l[1][1] == 0) {
+        cell = doeswork(1, 1)
+    }
+    else if (l[0][2] == a && l[1][2] == a && l[2][2] == 0) {
+        cell = doeswork(2, 2)
+    }
+    else if (l[1][2] == a && l[2][2] == a && l[0][2] == 0) {
+        cell = doeswork(0, 2)
+    }
+    else if (l[0][2] == a && l[2][2] == a && l[1][2] == 0) {
+        cell = doeswork(1, 2)
+    }
+    else if (l[0][0] == a && l[1][1] == a && l[2][2] == 0) {
+        cell = doeswork(2, 2)
+    }
+    else if (l[1][1] == a && l[2][2] == a && l[0][0] == 0) {
+        cell = doeswork(0, 0)
+    }
+    else if (l[0][0] == a && l[2][2] == a && l[1][1] == 0) {
+        cell = doeswork(1, 1)
+    }
+    else if (l[2][0] == a && l[1][1] == a && l[0][2] == 0) {
+        cell = doeswork(0, 2)
+    }
+    else if (l[1][1] == a && l[0][2] == a && l[2][0] == 0) {
+        cell = doeswork(2, 0)
+    }
+    else if (l[2][0] == a && l[0][2] == a && l[1][1] == 0) {
+        cell = doeswork(1, 1)
+    }
+    return cell
+}
 function computermove() {
 
-    const indslice = getRandomInt(0, list.length);
-    const ind = list[indslice];
-    list.splice(indslice, 1);
+
     var element = createNewElement('zero.png');
 
-    var cell;
-    console.log(l)
-    console.log(list)
-    if (ind < 3) {
-        cell = 'r1' + (ind + 1);
-        l[0][ind] = 2;
-    } else if (ind < 6) {
-        cell = 'r2' + (ind - 2);
-        l[1][ind - 3] = 2;
-    } else if (ind < 9) {
-        cell = 'r3' + (ind - 5);
-        l[2][ind - 6] = 2;
+    var cell = "";
+
+    cell = willwork(2)
+    if (cell === "") cell = willwork(1)
+
+
+
+    if (cell === "") {
+        const indslice = getRandomInt(0, list.length);
+        const ind = list[indslice];
+        list.splice(indslice, 1);
+        if (ind < 3) {
+            cell = 'r1' + (ind + 1);
+            l[0][ind] = 2;
+        } else if (ind < 6) {
+            cell = 'r2' + (ind - 2);
+            l[1][ind - 3] = 2;
+        } else if (ind < 9) {
+            cell = 'r3' + (ind - 5);
+            l[2][ind - 6] = 2;
+        }
     }
     console.log(l)
-    console.log(list)
     document.getElementById(cell).appendChild(element);
-   
 
+
+}
+function doeswork(a, b) {
+    cell = 'r' + (a + 1) + (b + 1);
+    l[a][b] = 2;
+    list.splice(l.indexOf(3 * a + b), 1)
+    return cell
 }
 function handleClick(cell) {
 
@@ -122,15 +218,15 @@ function handleClick(cell) {
 
             l[int1][int2] = 1;
             list.splice(list.indexOf(int1 * 3 + int2), 1);
-            console.log(l)
-            console.log(list)
+
 
             cell.appendChild(element);
             count++;
+            setTimeout(computermove, 100)
+            setTimeout(check, 100)
         }
-        
-        setTimeout(computermove, 500)
-        setTimeout(check,500)
+
+
     }
     else {
         if (l[parseInt(cell.id[1]) - 1][parseInt(cell.id[2]) - 1] == 0) {
@@ -147,7 +243,8 @@ function handleClick(cell) {
 
 
 function computer() {
-   mode=true
+    if (mode) return;
+    mode = true
 
     const tds = document.querySelectorAll('td');
     count = 0
@@ -159,12 +256,15 @@ function computer() {
     });
 
     var cells = document.querySelectorAll('td');
+
     cells.forEach(function (cell) {
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 500);
+
+        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 100);
     });
 }
 function player2() {
-  
+
+    mode = false
     count = 0
     l = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     const tds = document.querySelectorAll('td');
@@ -178,9 +278,12 @@ function player2() {
 
 
     var cells = document.querySelectorAll('td');
+
     cells.forEach(function (cell) {
+
         cell.addEventListener('click', () => handleClick(cell));
     });
+
 }
 document.getElementById('players').addEventListener('click', player2)
 document.getElementById('computer').addEventListener('click', computer)

@@ -5,33 +5,48 @@ body {
     align-items: center;
     justify-content: center;
 }
-.mode{
-    width: 20vw;
+
+.mode {
+    width: 20rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: baseline;
 }
-.mode button{background-color: yellow;
-font:black ;
-font-size: 1vw;
-margin-bottom: 1vw;
-height: 2vw;
-margin:1vw;
-;}
+
+.mode button {
+    background-color: yellow;
+    font: black;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
 
 
-h1{
+}
+
+.mode button:focus {
+
+    background-color: rgb(85, 226, 85)
+}
+
+h1 {
     margin-top: 1vw;
-    color: yellow   ;
-    font-size: 6vw;
+    color: yellow;
+    font-size: 3rem;
     margin-bottom: 1vw;
 }
 
 .rows td {
-    width: 10.5vw;
-    height: 10.5vw;
+    width: 9rem;
+    height: 9rem;
     border: yellow 2px solid;
-    
-}
+    position: relative;
+  }
 
-
-  
+  .rows td img {
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
