@@ -64,7 +64,7 @@ function check() {
     }
 
     if (bool) {
-        mode=!mode
+        
         if (p.length == 0) {
             alert("DRAW")
             location.reload()
@@ -76,6 +76,7 @@ function check() {
                 alert(s)
                 location.reload()
             }, 100)
+            return
         }
 
 
@@ -170,7 +171,7 @@ function willwork(a) {
 }
 function computermove() {
 
-
+    if (!mode)return
     var element = createNewElement('zero.png');
 
     var cell = "";
@@ -223,7 +224,7 @@ function handleClick(cell) {
             cell.appendChild(element);
             count++;
             setTimeout(computermove, 100)
-            setTimeout(check, 100)
+            setTimeout(check, 200)
         }
 
 
@@ -245,7 +246,8 @@ function handleClick(cell) {
 function computer() {
     if (mode) return;
     mode = true
-
+    document.getElementById('players').style.display="none";
+    
     const tds = document.querySelectorAll('td');
     count = 0
     l = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -265,6 +267,7 @@ function computer() {
 function player2() {
 
     mode = false
+    document.getElementById('computer').style.display="none";
     count = 0
     l = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     const tds = document.querySelectorAll('td');
