@@ -171,7 +171,7 @@ function willwork(a) {
 }
 function computermove() {
 
-    if (!mode)return
+    
     var element = createNewElement('zero.png');
 
     var cell = "";
@@ -197,6 +197,7 @@ function computermove() {
         }
     }
     console.log(l)
+    if (!mode)return
     document.getElementById(cell).appendChild(element);
 
 
@@ -223,8 +224,8 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-            setTimeout(computermove, 100)
-            setTimeout(check, 200)
+            setTimeout(computermove, 150)
+            setTimeout(check, 100)
         }
 
 
@@ -261,7 +262,7 @@ function computer() {
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 100);
+        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 150);
     });
 }
 function player2() {
