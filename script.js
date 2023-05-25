@@ -237,7 +237,8 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-           setTimeout(check,0)
+            setTimeout(()=>{},0)
+           setTimeout(check,1)
                
                 if(mode&&!draw)setTimeout(computermove,150)
     
@@ -279,7 +280,7 @@ function computer() {
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 10);
+        cell.addEventListener('click', ()=>(handleClick(cell)));
     });
 }
 function player2() {
