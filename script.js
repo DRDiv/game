@@ -67,9 +67,10 @@ function check() {
     if (bool) {
         mode=!mode
         if (p.length == 0 && !draw) {
-            draw=true
-            alert("DRAW")
-            location.reload()
+            draw=true;
+                alert("DRAW");
+                location.reload();
+            
             
         }
         else {
@@ -236,13 +237,13 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-           
-            check()
+           setTimeout(check,1)
+               
+                if(mode&&!draw)setTimeout(computermove,150)
+    
+                if (!draw && mode)setTimeout(check,250)}
             
-            if(mode&&!draw)setTimeout(computermove,150)
-
-            if (!draw && mode)setTimeout(check,250)
-        }
+        
 
 
     }
@@ -278,7 +279,7 @@ function computer() {
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 5);
+        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 10);
     });
 }
 function player2() {
