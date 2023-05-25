@@ -237,7 +237,7 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-           check()
+           setTimeout(check,0)
                
                 if(mode&&!draw)setTimeout(computermove,150)
     
