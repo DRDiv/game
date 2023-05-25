@@ -235,10 +235,10 @@ function handleClick(cell) {
             cell.appendChild(element);
             count++;
            
-            setTimeout(check,5)
-            if(mode)setTimeout(computermove,100)
+            setTimeout(check,10)
+            if(mode)setTimeout(computermove,150)
 
-            if (!draw && mode)setTimeout(check,200)
+            if (!draw && mode)setTimeout(check,250)
         }
 
 
