@@ -93,6 +93,7 @@ function getRandomInt(min, max) {
 }
 function willwork(a) {
     let cell = ""
+   
     if (l[0][0] == a && l[0][1] == a && l[0][2] == 0) {
         cell = doeswork(0, 2)
 
@@ -172,6 +173,14 @@ function willwork(a) {
     }
     return cell
 }
+function doeswork(a, b) {
+    cell = 'r' + (a + 1) + (b + 1);
+    l[a][b] = 2;
+ 
+    list.splice(list.indexOf(3 * a + b), 1)
+    
+    return cell
+}
 function computermove() {
     if (!mode)return
     
@@ -198,19 +207,16 @@ function computermove() {
             cell = 'r3' + (ind - 5);
             l[2][ind - 6] = 2;
         }
+        console.log(ind)
     }
-    console.log(l)
+   
+    
     if (mode)
     document.getElementById(cell).appendChild(element);
 
 
 }
-function doeswork(a, b) {
-    cell = 'r' + (a + 1) + (b + 1);
-    l[a][b] = 2;
-    list.splice(l.indexOf(3 * a + b), 1)
-    return cell
-}
+
 function handleClick(cell) {
 
 
@@ -229,10 +235,10 @@ function handleClick(cell) {
             cell.appendChild(element);
             count++;
            
-            setTimeout(check,25)
-            setTimeout(computermove,60)
+            setTimeout(check,5)
+            setTimeout(computermove,50)
 
-            if (!draw)setTimeout(check,120)
+            if (!draw)setTimeout(check,100)
         }
 
 
