@@ -80,8 +80,10 @@ function check() {
                 location.reload()
             }, 60)
             return
+        
         }
-
+        console.log(draw)
+            console.log(mode)   
 
 
 
@@ -235,10 +237,11 @@ function handleClick(cell) {
             cell.appendChild(element);
             count++;
            
-            setTimeout(check,10)
-            if(mode)setTimeout(computermove,200)
+            check()
+            
+            if(mode&&!draw)setTimeout(computermove,150)
 
-            if (!draw && mode)setTimeout(check,300)
+            if (!draw && mode)setTimeout(check,250)
         }
 
 
@@ -275,7 +278,7 @@ function computer() {
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 50);
+        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 5);
     });
 }
 function player2() {
