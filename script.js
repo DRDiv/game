@@ -69,7 +69,7 @@ function check() {
         if (p.length == 0 && !draw) {
             setTimeout(()=>{draw=true;
                 alert("DRAW");
-                location.reload();},30)
+                location.reload();},5)
             
                 
                 
