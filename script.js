@@ -236,7 +236,7 @@ function handleClick(cell) {
             count++;
            
             setTimeout(check,10)
-            if(mode)setTimeout(computermove,150)
+            if(mode)setTimeout(computermove,100)
 
             if (!draw && mode)setTimeout(check,250)
         }
