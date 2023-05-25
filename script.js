@@ -67,10 +67,12 @@ function check() {
     if (bool) {
         mode=!mode
         if (p.length == 0 && !draw) {
-            draw=true;
+            setTimeout(()=>{draw=true;
                 alert("DRAW");
-                location.reload();
+                location.reload();},30)
             
+                
+                
             
         }
         else {
@@ -78,11 +80,12 @@ function check() {
             setTimeout(() => {
                 s = m == 1 ? 'P1 WIN' : 'P2 WIN';
                 alert(s)
-                location.reload()
+                location.reload();
             }, 60)
             return
         
         }
+       
         console.log(draw)
             console.log(mode)   
 
@@ -227,7 +230,8 @@ function handleClick(cell) {
     if (mode) {
         
         if (l[parseInt(cell.id[1]) - 1][parseInt(cell.id[2]) - 1] == 0) {
-            var element = createNewElement('cross.png');
+            
+           var element = createNewElement('cross.png');
             var int1 = parseInt(cell.id[1]) - 1
             var int2 = parseInt(cell.id[2]) - 1
 
@@ -237,17 +241,18 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-            setTimeout(()=>{},0)
-           setTimeout(check,1)
-               
-                if(mode&&!draw)setTimeout(computermove,150)
-    
-                if (!draw && mode)setTimeout(check,250)}
             
-        
+            if(mode&&!draw)setTimeout(computermove,100)
+    
+            if (!draw && mode)setTimeout(check,150)}
+            check()
+               
+                
+        }
+    
 
 
-    }
+    
     else {
         if (l[parseInt(cell.id[1]) - 1][parseInt(cell.id[2]) - 1] == 0) {
             var element = count % 2 === 0 ? createNewElement('cross.png') : createNewElement('zero.png');
