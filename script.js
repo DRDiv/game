@@ -1,6 +1,7 @@
 var l = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 var count = 0;
 var mode = false;
+var draw=false;
 function createNewElement(source) {
     var element = document.createElement('img');
     element.src = source;
@@ -60,14 +61,16 @@ function check() {
         bool = true
         m = l[2][0]
         var p = ['r31', 'r22', 'r13']
-
+        
     }
 
     if (bool) {
-        
-        if (p.length == 0) {
+        mode=!mode
+        if (p.length == 0 && !draw) {
+            draw=true
             alert("DRAW")
             location.reload()
+            
         }
         else {
             p.forEach(function (element) { document.getElementById(element).children[0].src = (m == 1) ? "redcross.png" : "redzero.png" })
@@ -75,7 +78,7 @@ function check() {
                 s = m == 1 ? 'P1 WIN' : 'P2 WIN';
                 alert(s)
                 location.reload()
-            }, 100)
+            }, 60)
             return
         }
 
@@ -170,7 +173,7 @@ function willwork(a) {
     return cell
 }
 function computermove() {
-
+    if (!mode)return
     
     var element = createNewElement('zero.png');
 
@@ -213,6 +216,7 @@ function handleClick(cell) {
 
 
     if (mode) {
+        
         if (l[parseInt(cell.id[1]) - 1][parseInt(cell.id[2]) - 1] == 0) {
             var element = createNewElement('cross.png');
             var int1 = parseInt(cell.id[1]) - 1
@@ -224,8 +228,11 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-            setTimeout(computermove, 150)
-            setTimeout(check, 180)
+           
+            setTimeout(check,25)
+            setTimeout(computermove,60)
+
+            if (!draw)setTimeout(check,120)
         }
 
 
@@ -262,7 +269,7 @@ function computer() {
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 150);
+        cell.addEventListener('click', () => setTimeout(handleClick(cell)), 5);
     });
 }
 function player2() {
