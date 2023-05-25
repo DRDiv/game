@@ -8,6 +8,17 @@ function createNewElement(source) {
     element.style.height = '8rem';
     return element;
 }
+function showAlert(message) {
+    const alertBox = document.createElement('div');
+    alertBox.className = 'alert';
+    alertBox.innerHTML = `
+      <div class="alert-content">
+        <h2>${message}</h2>
+        <button onclick="location.reload()">OK</button>
+      </div>
+    `;
+    document.body.appendChild(alertBox);
+  }
 var list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 function check() {
     bool = false
@@ -68,9 +79,11 @@ function check() {
         mode=!mode
         if (p.length == 0 && !draw) {
             setTimeout(()=>{draw=true;
-                alert("DRAW");
-                location.reload();},5)
-            
+                showAlert("DRAW");
+                
+                },30)
+                
+           
                 
                 
             
@@ -79,10 +92,11 @@ function check() {
             p.forEach(function (element) { document.getElementById(element).children[0].src = (m == 1) ? "redcross.png" : "redzero.png" })
             setTimeout(() => {
                 s = m == 1 ? 'P1 WIN' : 'P2 WIN';
-                alert(s)
-                location.reload();
+                showAlert(s)
+               
+                
             }, 60)
-            return
+            
         
         }
        
@@ -241,11 +255,11 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-            
+            check()
             if(mode&&!draw)setTimeout(computermove,100)
     
             if (!draw && mode)setTimeout(check,150)}
-            check()
+            
                
                 
         }
