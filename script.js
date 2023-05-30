@@ -1,3 +1,6 @@
+
+
+
 var l = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 var count = 0;
 var mode = false;
@@ -8,19 +11,57 @@ function createNewElement(source) {
     element.style.height = '8rem';
     return element;
 }
-function showAlert(message) {
+function showAlert(message,icon) {
     const alertBox = document.createElement('div');
     alertBox.className = 'alert';
     alertBox.innerHTML = `
       <div class="alert-content">
+      <img src=${icon}>
         <h2>${message}</h2>
         <button onclick="location.reload()">OK</button>
       </div>
     `;
     document.body.appendChild(alertBox);
   }
+
+
+  function select() {
+    return new Promise((resolve, reject) => {
+      const alertBox = document.createElement('div');
+      alertBox.className = 'alert';
+      alertBox.innerHTML = `
+        <div class="alert-content">
+          <div class="icon-container">
+            <img src="bear.png" alt="bear" onclick="selectImage(this.src)">
+            <img src="cat.png" alt="cat" onclick="selectImage(this.src)">
+            <img src="woman.png" alt="woman" onclick="selectImage(this.src)">
+            <img src="gamer.png" alt="gamer" onclick="selectImage(this.src)">
+            <img src="man.png" alt="man" onclick="selectImage(this.src)">
+          </div>
+          
+        </div>
+      `;
+  
+      document.body.appendChild(alertBox);
+  
+      window.selectImage = function(src) {
+        delete window.selectImage;
+        alertBox.remove();
+        resolve(src);
+      };
+  
+      window.proceed = function() {
+        delete window.proceed;
+        alertBox.remove();
+        reject(new Error('Player canceled selection.'));
+      };
+    });
+  }
+ 
+    
 var list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-function check() {
+function check(icon1,icon2) {
+    
     bool = false
     m = -1
     if (!(l[0].includes(0) || l[1].includes(0) || (l[2].includes(0)))) {
@@ -74,12 +115,12 @@ function check() {
         var p = ['r31', 'r22', 'r13']
         
     }
-
+    console.log(bool)
     if (bool) {
         mode=!mode
         if (p.length == 0 && !draw) {
             setTimeout(()=>{draw=true;
-                showAlert("DRAW");
+                showAlert("DRAW","computer.png");
                 
                 },30)
                 
@@ -92,7 +133,9 @@ function check() {
             p.forEach(function (element) { document.getElementById(element).children[0].src = (m == 1) ? "redcross.png" : "redzero.png" })
             setTimeout(() => {
                 s = m == 1 ? 'P1 WIN' : 'P2 WIN';
-                showAlert(s)
+                icon=m==1?icon1:icon2;
+                
+                showAlert(s,icon)
                
                 
             }, 60)
@@ -100,8 +143,7 @@ function check() {
         
         }
        
-        console.log(draw)
-            console.log(mode)   
+        
 
 
 
@@ -191,6 +233,9 @@ function willwork(a) {
     else if (l[2][0] == a && l[0][2] == a && l[1][1] == 0) {
         cell = doeswork(1, 1)
     }
+    else if( list.indexOf(5)!=-1 && l[1][1]==0){
+        cell= doeswork(1,1)
+    }
     return cell
 }
 function doeswork(a, b) {
@@ -237,8 +282,8 @@ function computermove() {
 
 }
 
-function handleClick(cell) {
-
+function handleClick(cell,icon1,icon2) {
+    
 
 
     if (mode) {
@@ -255,11 +300,13 @@ function handleClick(cell) {
 
             cell.appendChild(element);
             count++;
-            check()
-            if(mode&&!draw)setTimeout(computermove,100)
-    
-            if (!draw && mode)setTimeout(check,150)}
+            check(icon1,icon2)
+            setTimeout(()=>{if(mode&&!draw)computermove()
             
+                if (!draw && mode)check(icon1,icon2)},20)
+
+            }
+         
                
                 
         }
@@ -274,7 +321,7 @@ function handleClick(cell) {
             cell.appendChild(element);
             count++;
         }
-        setTimeout(check, 5);
+        setTimeout(check(icon1,icon2), 5);
     }
 
 
@@ -282,6 +329,10 @@ function handleClick(cell) {
 
 
 function computer() {
+   var icon1
+   select().then((icon1t) => {
+    icon1=icon1t
+    icon2="computer.png"
     if (mode) return;
     mode = true
     document.getElementById('players').style.display="none";
@@ -293,38 +344,46 @@ function computer() {
         while (td.firstChild) {
             td.removeChild(td.firstChild);
         }
-    });
+    });})
 
     var cells = document.querySelectorAll('td');
 
     cells.forEach(function (cell) {
 
-        cell.addEventListener('click', ()=>(handleClick(cell)));
+        cell.addEventListener('click', ()=>(handleClick(cell,icon1,icon2)));
     });
 }
 function player2() {
-
-    mode = false
-    document.getElementById('computer').style.display="none";
-    count = 0
-    l = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    var icon1,icon2;
+  select().then((icon1t) => {
+    icon1=icon1t
+    return select();
+  }).then((icon2t) => {
+    icon2=icon2t
+    
+    mode = false;
+    document.getElementById('computer').style.display = 'none';
+    count = 0;
+    l = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
     const tds = document.querySelectorAll('td');
     tds.forEach((td) => {
-        while (td.firstChild) {
-            td.removeChild(td.firstChild);
-        }
+      while (td.firstChild) {
+        td.removeChild(td.firstChild);
+      }
     });
-
-
-
 
     var cells = document.querySelectorAll('td');
-
-    cells.forEach(function (cell) {
-
-        cell.addEventListener('click', () => handleClick(cell));
+    cells.forEach(function(cell) {
+      cell.addEventListener('click', () => handleClick(cell,icon1,icon2));
     });
-
+  })
 }
+
+
+
+
+
+
+
 document.getElementById('players').addEventListener('click', player2)
 document.getElementById('computer').addEventListener('click', computer)
