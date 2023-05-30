@@ -31,7 +31,9 @@ function showAlert(message,icon) {
       alertBox.className = 'alert';
       alertBox.innerHTML = `
         <div class="alert-content">
+        <h2>PLEASE SELECT AVATAR:</h2>
           <div class="icon-container">
+
             <img src="bear.png" alt="bear" onclick="selectImage(this.src)">
             <img src="cat.png" alt="cat" onclick="selectImage(this.src)">
             <img src="woman.png" alt="woman" onclick="selectImage(this.src)">
